@@ -8,7 +8,7 @@ import com.mobiquity.arnab.weather.database.entity.CityEntity
  */
 @Dao
 interface CityDao {
-    @get:Query("SELECT * FROM city")
+    @get:Query("SELECT * FROM city ORDER BY name ASC")
     val all: List<CityEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

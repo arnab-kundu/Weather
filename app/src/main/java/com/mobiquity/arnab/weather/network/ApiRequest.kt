@@ -14,16 +14,18 @@ interface ApiRequest {
 
     @GET("data/2.5/weather?")
     fun getCurrentWeatherReportAPI(
-        @Query("lat") lat: String?,
-        @Query("lon") lon: String?,
-        @Query("appid") appid: String?
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appid: String,
+        @Query("units") units: String
     ): Call<WeatherResponse>
 
 
     @GET("data/2.5/forecast?")
     fun getWeatherForecastAPI(
-        @Query("lat") lat: String?,
-        @Query("lon") lon: String?,
-        @Query("appid") appid: String?
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appid: String,
+        @Query("units") units: String
     ): Call<ForecastResponse>
 }

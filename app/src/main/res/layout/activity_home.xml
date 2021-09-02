@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.HomeActivity">
 
-    <Button
-        android:id="@+id/bt_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="city"
-        android:text="City"
-        tools:layout_editor_absoluteX="326dp"
-        tools:layout_editor_absoluteY="284dp" />
-
 
     <EditText
         android:id="@+id/et_search_location"
@@ -23,8 +14,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:hint="Search(Not implemented)"
         android:inputType="textPersonName"
-        android:text="Search"
         app:layout_constraintEnd_toStartOf="@+id/btn_settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,11 +27,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@color/transparent"
+        android:tooltipText="Not implemented"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_manage" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_city_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
