@@ -24,7 +24,7 @@ class HelpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val webView: WebView = view.findViewById(R.id.webView)
-        webView.loadUrl("https://raw.githubusercontent.com/arnab-kundu/Weather/master/help.html")
+        webView.loadUrl("https://htmlpreview.github.io/?https://raw.githubusercontent.com/arnab-kundu/Weather/master/Help.html")
         webView.clearCache(true)
         webView.getSettings().setJavaScriptEnabled(true)
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true)
