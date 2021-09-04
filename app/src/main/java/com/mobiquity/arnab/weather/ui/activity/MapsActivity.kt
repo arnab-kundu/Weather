@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.mobiquity.arnab.weather.R
 import com.mobiquity.arnab.weather.database.AppDatabase
 import com.mobiquity.arnab.weather.database.entity.CityEntity
@@ -67,7 +68,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this, "Not data found for selected location", Toast.LENGTH_SHORT).show()
             } else {
                 mMap.addMarker(MarkerOptions().position(point).title(list[0].locality))
-                Toast.makeText(this, "${list[0].locality}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "${list[0].locality} added to bookmark", Toast.LENGTH_SHORT).show()
                 // TODO DATABASE operation
 
                 val db: AppDatabase = AppDatabase.invoke(this)

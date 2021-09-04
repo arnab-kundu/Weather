@@ -1,4 +1,4 @@
-package com.mobiquity.arnab.weather
+package com.mobiquity.arnab.weather.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,8 +13,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.mobiquity.arnab.weather.R
 import com.mobiquity.arnab.weather.databinding.ActivityMainBinding
-import com.mobiquity.arnab.weather.ui.activity.MapsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,7 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Snackbar.make(binding.appBarMain.fab, "Not implemented", Snackbar.LENGTH_SHORT).setAction("Action", null).show()
+        when (item.itemId) {
+            R.id.action_settings ->
+                Snackbar.make(binding.appBarMain.fab, "Not implemented", Snackbar.LENGTH_SHORT).setAction("Action", null).show()
+        }
         return super.onOptionsItemSelected(item)
     }
 

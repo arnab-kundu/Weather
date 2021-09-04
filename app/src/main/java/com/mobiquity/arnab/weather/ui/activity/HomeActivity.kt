@@ -4,15 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobiquity.arnab.weather.R
 import com.mobiquity.arnab.weather.database.AppDatabase
 import com.mobiquity.arnab.weather.database.entity.CityEntity
-import com.mobiquity.arnab.weather.ui.adapter.CityListAdapter
-import com.mobiquity.arnab.weather.utils.Constants
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
 
+@Deprecated(message = "Noy in use any more")
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
