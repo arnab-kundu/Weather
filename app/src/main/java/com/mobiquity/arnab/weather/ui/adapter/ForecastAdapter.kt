@@ -10,6 +10,7 @@ import com.mobiquity.arnab.weather.R
 import com.mobiquity.arnab.weather.enums.Units
 import com.mobiquity.arnab.weather.network.response.ForecastResponse
 import com.mobiquity.arnab.weather.utils.Constants
+import com.mobiquity.arnab.weather.utils.DateFormatter
 import kotlinx.android.synthetic.main.row_forecast.view.*
 
 class ForecastAdapter(val fiveDayForecast: List<ForecastResponse.FiveDay>) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
@@ -34,7 +35,7 @@ class ForecastAdapter(val fiveDayForecast: List<ForecastResponse.FiveDay>) : Rec
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.tv_date_time.text = fiveDayForecast[position].dt_txt
+        holder.itemView.tv_date_time.text = DateFormatter.getFormattedDate(fiveDayForecast[position].dt.toLong()*1000)
         if (units == Units.metric)
             holder.itemView.tv_temp.text = "${fiveDayForecast[position].main.temp.toInt()}°C"
         else

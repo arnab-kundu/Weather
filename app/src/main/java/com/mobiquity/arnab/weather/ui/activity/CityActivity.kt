@@ -71,7 +71,7 @@ class CityActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val weatherResponse: WeatherResponse = response.body()!!
 
-                    tv_city_name.text = weatherResponse.name
+                    tv_weather_api_location.text = weatherResponse.name
                     if (units == Units.metric) {
                         tv_temp.text = "${weatherResponse.main.temp.toInt()}°C"
                     } else if (units == Units.imperial) {
