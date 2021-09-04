@@ -28,9 +28,9 @@ class HomeActivity : AppCompatActivity() {
                         cityList
                     }
                     val cityList: List<CityEntity> = deferred.await()
-                    val adapter: CityListAdapter = CityListAdapter(cityList)
+                    /*val adapter: CityListAdapter = CityListAdapter(cityList)
                     rv_city_list.layoutManager = LinearLayoutManager(this@HomeActivity)
-                    rv_city_list.adapter = adapter
+                    rv_city_list.adapter = adapter*/
                 }
             }
         }

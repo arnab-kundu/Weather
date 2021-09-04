@@ -34,7 +34,6 @@ class CityActivity : AppCompatActivity() {
 
         val bandle: Bundle = intent.extras!!
         val city = bandle.get("city")
-        //val city = "Kolkata"
         tv_city_name.text = city.toString()
 
         apiRequest = RetrofitClient.retrofitInstance!!.create(ApiRequest::class.java)

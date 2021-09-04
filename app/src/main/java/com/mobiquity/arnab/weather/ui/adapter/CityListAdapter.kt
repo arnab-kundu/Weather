@@ -11,7 +11,7 @@ import com.mobiquity.arnab.weather.database.entity.CityEntity
 import com.mobiquity.arnab.weather.ui.activity.CityActivity
 import kotlinx.android.synthetic.main.row_city.view.*
 
-class CityListAdapter(val cityList: List<CityEntity>) : RecyclerView.Adapter<CityListAdapter.CityViewHolder>() {
+class CityListAdapter(private val cityList: ArrayList<CityEntity>) : RecyclerView.Adapter<CityListAdapter.CityViewHolder>() {
 
     //   private val cityList: ArrayList<CityEntity> = ArrayList()
     private lateinit var ctx: Context
@@ -43,4 +43,9 @@ class CityListAdapter(val cityList: List<CityEntity>) : RecyclerView.Adapter<Cit
     }
 
 
+    fun addData(list: List<CityEntity>) {
+        cityList.clear()
+        cityList.addAll(list)
+        notifyDataSetChanged()
+    }
 }
