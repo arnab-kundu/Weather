@@ -13,15 +13,9 @@ import kotlinx.android.synthetic.main.row_city.view.*
 
 class CityListAdapter(private val cityList: ArrayList<CityEntity>) : RecyclerView.Adapter<CityListAdapter.CityViewHolder>() {
 
-    //   private val cityList: ArrayList<CityEntity> = ArrayList()
     private lateinit var ctx: Context
 
-    //class CityViewHolder(val itemBinding: RowCityBinding) : RecyclerView.ViewHolder(itemBinding.root)
-
-
-    class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    }
+    class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_city, parent, false)

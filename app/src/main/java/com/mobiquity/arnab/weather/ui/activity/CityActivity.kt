@@ -27,10 +27,18 @@ class CityActivity : AppCompatActivity() {
     lateinit var apiRequest: ApiRequest
     lateinit var latitude: String
     lateinit var longitude: String
+    lateinit var units: Units
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city)
+
+        val sp = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE)
+        if (sp.getString("unit", Units.metric.name) == Units.metric.name) {
+            units = Units.metric
+        } else {
+            units = Units.imperial
+        }
 
         val bandle: Bundle = intent.extras!!
         val city = bandle.get("city")
@@ -46,16 +54,13 @@ class CityActivity : AppCompatActivity() {
             }
             deferred.await()
             //currentWeatherAPI(17.38721272157597.toString(), 78.48014261573553.toString(), Constants.WEATHER_API_KEY)
-            currentWeatherAPI(latitude, longitude, Constants.WEATHER_API_KEY)
+            currentWeatherAPI(latitude, longitude, Constants.WEATHER_API_KEY, units)
+            forecastAPI(latitude, longitude, Constants.WEATHER_API_KEY, units)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        forecastAPI(17.38721272157597.toString(), 78.48014261573553.toString(), Constants.WEATHER_API_KEY)
-    }
 
-    fun currentWeatherAPI(latitude: String, longitude: String, appid: String, units: Units = Units.metric) {
+    private fun currentWeatherAPI(latitude: String, longitude: String, appid: String, units: Units = Units.metric) {
         apiRequest.getCurrentWeatherReportAPI(
             lat = latitude,
             lon = longitude,
@@ -87,7 +92,7 @@ class CityActivity : AppCompatActivity() {
         })
     }
 
-    fun forecastAPI(latitude: String, longitude: String, appid: String, units: Units = Units.metric) {
+    private fun forecastAPI(latitude: String, longitude: String, appid: String, units: Units = Units.metric) {
         apiRequest.getWeatherForecastAPI(
             lat = latitude,
             lon = longitude,

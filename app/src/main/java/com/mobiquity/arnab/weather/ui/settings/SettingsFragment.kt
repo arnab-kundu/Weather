@@ -12,6 +12,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import com.mobiquity.arnab.weather.R
 import com.mobiquity.arnab.weather.database.AppDatabase
 import com.mobiquity.arnab.weather.enums.Units
+import com.mobiquity.arnab.weather.utils.Constants
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,8 +39,9 @@ class SettingsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val sp: SharedPreferences = requireActivity().getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE)
+        unitSwitch.isChecked = sp.getString("unit", Units.metric.name) != Units.metric.name
         unitSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            val sp: SharedPreferences = requireActivity().getSharedPreferences("Weather", MODE_PRIVATE)
             val editor = sp.edit()
 
             if (isChecked) {

@@ -12,10 +12,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.snackbar.Snackbar
 import com.mobiquity.arnab.weather.R
 import com.mobiquity.arnab.weather.database.AppDatabase
 import com.mobiquity.arnab.weather.database.entity.CityEntity
+import com.mobiquity.arnab.weather.utils.NetworkAvailability
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,37 +53,40 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(hyderabad))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(hyderabad, 15.0f))
 
+        if (NetworkAvailability.isInternetAvailable(this))
+            mMap.setOnMapClickListener(OnMapClickListener { point ->
+                //allPoints.add(it)
+                mMap.clear()
+                //mMap.addMarker(MarkerOptions().position(point))
+                Log.d(TAG, "onMapReady: ${point.latitude} ${point.longitude}")
 
-        mMap.setOnMapClickListener(OnMapClickListener { point ->
-            //allPoints.add(it)
-            mMap.clear()
-            //mMap.addMarker(MarkerOptions().position(point))
-            Log.d(TAG, "onMapReady: ${point.latitude} ${point.longitude}")
+                val geocoder: Geocoder = Geocoder(this)
+                val list = geocoder.getFromLocation(point.latitude, point.longitude, 1)
+                Log.d(TAG, "onMapReady: ${list[0].locality}")
+                if (list[0].locality == null) {
+                    mMap.addMarker(MarkerOptions().position(point))
+                    Toast.makeText(this, "Not data found for selected location", Toast.LENGTH_SHORT).show()
+                } else {
+                    mMap.addMarker(MarkerOptions().position(point).title(list[0].locality))
+                    Toast.makeText(this, "${list[0].locality} added to bookmark", Toast.LENGTH_SHORT).show()
+                    // TODO DATABASE operation
 
-            val geocoder: Geocoder = Geocoder(this)
-            val list = geocoder.getFromLocation(point.latitude, point.longitude, 1)
-            Log.d(TAG, "onMapReady: ${list[0].locality}")
-            if (list[0].locality == null) {
-                mMap.addMarker(MarkerOptions().position(point))
-                Toast.makeText(this, "Not data found for selected location", Toast.LENGTH_SHORT).show()
-            } else {
-                mMap.addMarker(MarkerOptions().position(point).title(list[0].locality))
-                Toast.makeText(this, "${list[0].locality} added to bookmark", Toast.LENGTH_SHORT).show()
-                // TODO DATABASE operation
-
-                val db: AppDatabase = AppDatabase.invoke(this)
-                CoroutineScope(Dispatchers.IO).launch {
-                    db.cityDao().insert(
-                        CityEntity(
-                            id = 0,
-                            list[0].locality,
-                            lat = point.latitude,
-                            lon = point.longitude
+                    val db: AppDatabase = AppDatabase.invoke(this)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        db.cityDao().insert(
+                            CityEntity(
+                                id = 0,
+                                list[0].locality,
+                                lat = point.latitude,
+                                lon = point.longitude
+                            )
                         )
-                    )
+                    }
                 }
-            }
 
-        })
+            })
+        else{
+            Toast.makeText(this, "No internet available", Toast.LENGTH_SHORT).show()
+        }
     }
 }
