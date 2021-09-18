@@ -1,30 +1,29 @@
 package com.mobiquity.arnab.weather
 
 import android.app.Application
-import com.mobiquity.arnab.weather.database.AppDatabase
-import com.mobiquity.arnab.weather.network.ApiRequest
-import com.mobiquity.arnab.weather.network.NetworkConnectionInterceptor
-import com.mobiquity.arnab.weather.repo.AppRepository
-import com.mobiquity.arnab.weather.ui.home.HomeViewModelFactory
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
+import com.mobiquity.arnab.weather.di.AppModule
+import com.mobiquity.arnab.weather.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-class App : Application(), KodeinAware {
+class App : Application(), HasAndroidInjector {
 
 
-    override val kodein: Kodein = Kodein.lazy {
-        import(androidXModule(this@App))
+    @Inject
+    lateinit var mInjector: DispatchingAndroidInjector<Any>
 
-        bind() from singleton { NetworkConnectionInterceptor(instance()) }
-        bind() from singleton { ApiRequest(instance()) }
-        bind() from singleton { AppDatabase(instance()) }
-        bind() from singleton { AppRepository(instance(), instance()) }
-        bind() from singleton { HomeViewModelFactory(instance()) }
-
+    override fun onCreate() {
+        super.onCreate()
+        DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
+            .inject(this)
     }
 
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return mInjector
+    }
 }

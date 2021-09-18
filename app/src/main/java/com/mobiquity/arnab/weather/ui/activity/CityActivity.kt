@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobiquity.arnab.weather.R
 import com.mobiquity.arnab.weather.database.AppDatabase
 import com.mobiquity.arnab.weather.enums.Units
-import com.mobiquity.arnab.weather.network.ApiRequest
+import com.mobiquity.arnab.weather.network.WeatherApi
 import com.mobiquity.arnab.weather.network.RetrofitClient
 import com.mobiquity.arnab.weather.network.response.ForecastResponse
 import com.mobiquity.arnab.weather.network.response.WeatherResponse
@@ -24,7 +24,7 @@ import retrofit2.Response
 class CityActivity : AppCompatActivity() {
 
     private val TAG = "CityActivity"
-    lateinit var apiRequest: ApiRequest
+    lateinit var weatherApi: WeatherApi
     lateinit var latitude: String
     lateinit var longitude: String
     lateinit var units: Units
@@ -44,7 +44,7 @@ class CityActivity : AppCompatActivity() {
         val city = bandle.get("city")
         tv_city_name.text = city.toString()
 
-        apiRequest = RetrofitClient.retrofitInstance!!.create(ApiRequest::class.java)
+        weatherApi = RetrofitClient.retrofitInstance!!.create(WeatherApi::class.java)
         val db: AppDatabase = AppDatabase.invoke(this)
         CoroutineScope(Dispatchers.Main).launch {
             val deferred: Deferred<Unit> = CoroutineScope(Dispatchers.IO).async {
@@ -61,7 +61,7 @@ class CityActivity : AppCompatActivity() {
 
 
     private fun currentWeatherAPI(latitude: String, longitude: String, appid: String, units: Units = Units.metric) {
-        apiRequest.getCurrentWeatherReportAPI(
+        weatherApi.getCurrentWeatherReportAPI(
             lat = latitude,
             lon = longitude,
             appid = appid,
@@ -93,7 +93,7 @@ class CityActivity : AppCompatActivity() {
     }
 
     private fun forecastAPI(latitude: String, longitude: String, appid: String, units: Units = Units.metric) {
-        apiRequest.getWeatherForecastAPI(
+        weatherApi.getWeatherForecastAPI(
             lat = latitude,
             lon = longitude,
             appid = appid,

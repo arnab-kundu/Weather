@@ -15,8 +15,6 @@ class HelpFragment : Fragment() {
         fun newInstance() = HelpFragment()
     }
 
-    private lateinit var viewModel: HelpViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_help, container, false)
     }
@@ -28,12 +26,6 @@ class HelpFragment : Fragment() {
         webView.clearCache(true)
         webView.getSettings().setJavaScriptEnabled(true)
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HelpViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

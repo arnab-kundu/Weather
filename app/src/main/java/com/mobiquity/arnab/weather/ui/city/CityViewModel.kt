@@ -5,15 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mobiquity.arnab.weather.enums.Units
-import com.mobiquity.arnab.weather.network.ApiRequest
+import com.mobiquity.arnab.weather.network.WeatherApi
 import com.mobiquity.arnab.weather.network.RetrofitClient
 import com.mobiquity.arnab.weather.network.response.WeatherResponse
+import com.mobiquity.arnab.weather.repo.AppRepository
 import com.mobiquity.arnab.weather.utils.Constants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class CityViewModel/*(val repo: AppRepository)*/ : ViewModel() {
+class CityViewModel @Inject constructor(private val repo: AppRepository) : ViewModel() {
     private val TAG = "CityViewModel"
 
     var mNameString: MutableLiveData<String> = MutableLiveData<String>()
@@ -28,15 +30,15 @@ class CityViewModel/*(val repo: AppRepository)*/ : ViewModel() {
     var rainString: LiveData<String> = mRainString
     var windString: LiveData<String> = mWindString
 
-    var apiRequest: ApiRequest
+    var weatherApi: WeatherApi
 
     init {
-        apiRequest = RetrofitClient.retrofitInstance!!.create(ApiRequest::class.java)
+        weatherApi = RetrofitClient.retrofitInstance!!.create(WeatherApi::class.java)
         currentWeatherAPI("0.0", "0.0", Constants.WEATHER_API_KEY)
     }
 
     fun currentWeatherAPI(latitude: String, longitude: String, appid: String, units: Units = Units.metric) {
-        apiRequest.getCurrentWeatherReportAPI(
+        weatherApi.getCurrentWeatherReportAPI(
             lat = latitude,
             lon = longitude,
             appid = appid,

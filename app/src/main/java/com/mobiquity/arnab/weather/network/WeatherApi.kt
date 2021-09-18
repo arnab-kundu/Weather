@@ -15,7 +15,7 @@ import retrofit2.http.Query
 /**
  * Retrofit interface for API call.
  */
-interface ApiRequest {
+interface WeatherApi : BaseApi {
 
     @GET("data/2.5/weather?")
     fun getCurrentWeatherReportAPI(
@@ -36,7 +36,7 @@ interface ApiRequest {
 
 
     companion object {
-        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): ApiRequest {
+        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): WeatherApi {
 
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
@@ -48,7 +48,7 @@ interface ApiRequest {
                 .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiRequest::class.java)
+                .create(WeatherApi::class.java)
         }
     }
 }
