@@ -5,12 +5,14 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
+//TODO 8
 @Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        AppModule::class,
-        HomeFragmentModule::class
+        HomeFragmentModule::class,
+        SettingsFragmentModule::class,
+        AppModule::class
     ]
 )
 interface AppComponent {

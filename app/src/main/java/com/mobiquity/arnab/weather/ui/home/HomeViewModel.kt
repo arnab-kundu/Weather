@@ -8,11 +8,6 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val repository: BaseRepository) : BaseViewModel(repository) {
 
-    //val mCityList: MutableLiveData<List<CityEntity>> = MutableLiveData<List<CityEntity>>()
-    //var cityList: LiveData<List<CityEntity>> = mCityList
-
-    //  var searchedText: String = ""
-
 
     fun observeCityList(searchedText: String): LiveData<List<CityEntity>> {
         return repository.observeCityList(searchedText)

@@ -8,6 +8,8 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
+
+//TODO 9
 class App : Application(), HasAndroidInjector {
 
 

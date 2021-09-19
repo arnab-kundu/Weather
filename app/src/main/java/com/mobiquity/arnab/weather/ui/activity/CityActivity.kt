@@ -15,7 +15,6 @@ import com.mobiquity.arnab.weather.network.response.WeatherResponse
 import com.mobiquity.arnab.weather.ui.adapter.ForecastAdapter
 import com.mobiquity.arnab.weather.utils.Constants
 import kotlinx.android.synthetic.main.activity_city.*
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,5 +1,6 @@
 package com.mobiquity.arnab.weather.repo
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import com.mobiquity.arnab.weather.database.AppDatabase
 import com.mobiquity.arnab.weather.database.entity.CityEntity
@@ -8,9 +9,15 @@ import com.mobiquity.arnab.weather.network.SafeApiCall
 import javax.inject.Inject
 
 
-class BaseRepository @Inject constructor(private val api: BaseApi, private val db: AppDatabase) : SafeApiCall {
+open class BaseRepository
+@Inject
+constructor(
+    private val api: BaseApi,
+    private val db: AppDatabase,
+    private val sp: SharedPreferences
+) : SafeApiCall {
 
-    suspend fun logout() = safeApiCall {
+    open suspend fun logout() = safeApiCall {
         api.logout()
     }
 
