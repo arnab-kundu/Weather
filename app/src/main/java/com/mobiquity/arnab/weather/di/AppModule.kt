@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import com.mobiquity.arnab.weather.database.AppDatabase
 import com.mobiquity.arnab.weather.network.BaseApi
 import com.mobiquity.arnab.weather.network.RemoteDataSource
+import com.mobiquity.arnab.weather.utils.Constants
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -23,7 +24,7 @@ class AppModule(private val context: Context) {
     @Singleton
     @Provides
     fun provideSettingsPreferences(): SharedPreferences {
-        return context.getSharedPreferences("SP", MODE_PRIVATE)!!
+        return context.getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE)!!
     }
 
     @Singleton

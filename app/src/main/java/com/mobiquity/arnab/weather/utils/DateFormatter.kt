@@ -1,14 +1,12 @@
-package com.mobiquity.arnab.weather.utils;
+package com.mobiquity.arnab.weather.utils
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.text.SimpleDateFormat
+import java.util.*
 
-public class DateFormatter {
-
-    public static String getFormattedDate(long millisecond) {
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
-        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        return simpleDateFormat.format(millisecond) + " - " + simpleTimeFormat.format(millisecond);
+object DateFormatter {
+    fun getFormattedDate(millisecond: Long): String {
+        val simpleDateFormat = SimpleDateFormat("EEEE", Locale.getDefault())
+        val simpleTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return simpleDateFormat.format(millisecond) + " - " + simpleTimeFormat.format(millisecond)
     }
 }

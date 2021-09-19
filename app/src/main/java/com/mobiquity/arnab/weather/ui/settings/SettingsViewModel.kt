@@ -9,13 +9,12 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(private val repository: SettingsRepository) : BaseViewModel(repository) {
 
 
-
     fun changeUnit(units: Units) {
         repository.changeUnit(units)
     }
 
-    fun getSavedUnit(): Units {
-        return repository.getSavedUnit()
+    fun isUnitSwitchChecked(): Boolean {
+        return repository.getSavedUnit() == Units.imperial
     }
 
     fun resetSavedCities() {

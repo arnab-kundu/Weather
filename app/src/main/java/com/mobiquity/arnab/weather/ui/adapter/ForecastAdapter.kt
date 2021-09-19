@@ -13,7 +13,7 @@ import com.mobiquity.arnab.weather.utils.Constants
 import com.mobiquity.arnab.weather.utils.DateFormatter
 import kotlinx.android.synthetic.main.row_forecast.view.*
 
-class ForecastAdapter(val fiveDayForecast: List<ForecastResponse.FiveDay>) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
+class ForecastAdapter(private val fiveDayForecast: List<ForecastResponse.FiveDay>) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
     private lateinit var ctx: Context
     private lateinit var units: Units
@@ -35,7 +35,7 @@ class ForecastAdapter(val fiveDayForecast: List<ForecastResponse.FiveDay>) : Rec
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.tv_date_time.text = DateFormatter.getFormattedDate(fiveDayForecast[position].dt.toLong()*1000)
+        holder.itemView.tv_date_time.text = DateFormatter.getFormattedDate(fiveDayForecast[position].dt.toLong() * 1000)
         if (units == Units.metric)
             holder.itemView.tv_temp.text = "${fiveDayForecast[position].main.temp.toInt()}°C"
         else
@@ -44,6 +44,18 @@ class ForecastAdapter(val fiveDayForecast: List<ForecastResponse.FiveDay>) : Rec
         holder.itemView.tv_humidity.text = "Humidity: ${fiveDayForecast[position].main.humidity}%"
         holder.itemView.tv_rain_info.text = "Clouds ${fiveDayForecast[position].clouds.all}%"
         holder.itemView.tv_wind_info.text = "Wind speed ${fiveDayForecast[position].wind.speed}km/hr\ntowards ${fiveDayForecast[position].wind.deg}°"
+
+        if (position >= 0 && position % 5 == 0)
+            holder.itemView.root.background = ctx.getDrawable(R.drawable.bg_round_corner_red)
+        else if (position >= 2 && position % 4 == 0)
+            holder.itemView.root.background = ctx.getDrawable(R.drawable.bg_round_corner_green)
+        else if (position % 3 == 0)
+            holder.itemView.root.background = ctx.getDrawable(R.drawable.bg_round_corner_yellow)
+        else if (position % 2 == 0)
+            holder.itemView.root.background = ctx.getDrawable(R.drawable.bg_round_corner_perple)
+        else
+            holder.itemView.root.background = ctx.getDrawable(R.drawable.bg_round_corner)
+
 
     }
 

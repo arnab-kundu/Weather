@@ -43,19 +43,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val sp: SharedPreferences = requireActivity().getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE)
-        unitSwitch.isChecked = sp.getString("unit", Units.metric.name) != Units.metric.name
+        unitSwitch.isChecked = viewModel.isUnitSwitchChecked()
+
         unitSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            val editor = sp.edit()
 
             if (isChecked) {
-                editor.putString("unit", Units.imperial.name)
+                viewModel.changeUnit(Units.imperial)
                 Snackbar.make(buttonView, "Imperial(°F)", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             } else {
-                editor.putString("unit", Units.metric.name)
+                viewModel.changeUnit(Units.metric)
                 Snackbar.make(buttonView, "Metric(°C)", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             }
-            editor.apply()
         }
 
         binding.btnReset.setOnClickListener {
